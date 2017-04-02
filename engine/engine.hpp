@@ -1,14 +1,6 @@
 #include "graphics/Graphics.hpp"
 #include "input/input_manager.cpp"
-<<<<<<< HEAD
 
-class Engine{
-	private:
-		Graphics gfx;
-		Input input;
-		void logicLoop();
-		void graphicsLoop();
-=======
 #ifndef INI
 #define INI
 #include "../inc/SimpleIni/SimpleIni.hpp"
@@ -50,7 +42,6 @@ class Engine{
 		void logicUpdate();
 		void graphicsUpdate();
 		void createIniHandler(const string);
->>>>>>> origin/engine
 	public:
 		Engine();
 		void run();
@@ -82,11 +73,6 @@ void Engine::graphicsUpdate(){
 }
 
 void Engine::run(){
-<<<<<<< HEAD
-	while (this->gfx.running()){
-		this->graphicsLoop();
-		input.input_loop();
-=======
 	while (this->graphics.running()){
 		// time since game started
 		sf::Time elapsed = this->gameClock.getElapsedTime();
@@ -128,6 +114,5 @@ void Engine::run(){
 			this->graphics.clearDisplay();
 			this->graphicsUpdate();
 		}
->>>>>>> origin/engine
 	}
 }
