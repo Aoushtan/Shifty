@@ -1,49 +1,54 @@
-#include <windows.h>
+#include <SFML\Graphics.hpp>
+#include <random>
 #include <iostream>
-using namespace std;
+#include <unordered_map>
 
-int main()
-{
-    HANDLE hIn;
-    HANDLE hOut;
-    INPUT_RECORD InRec;
-    DWORD NumRead;
-	string mouseX = "";
-	string mouseY = "";
-	string keyCode = "";
-
-    hIn = GetStdHandle(STD_INPUT_HANDLE);
-    hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-
-    while (1)
-    {
-        ReadConsoleInput(hIn, &InRec, 1, &NumRead);
-        switch (InRec.EventType)
-        {
-			case KEY_EVENT:
+int main(int argc, char** argv){
+	//Change this to window rendered by graphics module
+	sf::RenderWindow window(sf::VideoMode(640, 480), "LOL");
+	//Event
+	sf::Event event;
+	//Creating a map to hold keys pressed
+	std::unordered_map<int,bool> keys;
+	//Creating list to check for if keys change
+	//std::list<int> changedKeys;
+	
+	while(window.isOpen()){
+		//Reset changed keys check
+		//changedKeys.clear();
+		while(window.pollEvent(event)){
+			if(event.type == sf::Event::EventType::Closed)
 			{
-				if(InRec.Event.KeyEvent.bKeyDown)
-				{
-					keyCode = InRec.Event.KeyEvent.wVirtualKeyCode;
-					cout << "You hit key with value " + keyCode << endl;
-				}
-				break;
+				window.close();
 			}
-			case MOUSE_EVENT:
-			{
-				mouseX = InRec.Event.MouseEvent.dwMousePosition.X;
-				mouseY = InRec.Event.MouseEvent.dwMousePosition.Y;
-				if(InRec.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED)
-				{
-					cout << "You clicked LMB on " + mouseX + " " + mouseY << endl;
+			//Managing held down keys and storing in keys
+			//Adds pressed key to map if it does not exist upon press
+			if(event.type == sf::Event::EventType::KeyPressed){
+				if(keys.count(event.key.code) == 0){
+					keys[event.key.code] = true;
+					//changedKeys.push_back(event.key.code);
 				}
-				else if(InRec.Event.MouseEvent.dwButtonState == RIGHTMOST_BUTTON_PRESSED)
-				{
-					cout << "You clicked RMB on " + mouseX + " " + mouseY << endl;
+			}
+			//Removes pressed key from the map upon release
+			if(event.type == sf::Event::EventType::KeyReleased){
+				if(keys.count(event.key.code) == 1){
+					keys.erase(event.key.code);
+					//changedKeys.push_back(event.key.code);
 				}
-				break;
 			}
 		}
-    }
-    return 0;
+		//Print out enum values of keys
+		std::cout << "Currently pressed keys: ";
+		for(auto& keyValue : keys)
+		{
+			std::cout << keyValue.first << " ";
+		}
+		std::cout << std::endl;
+		//if(!changedKeys.empty())
+		//{
+			//std::cout << "Changed Keys: " << std::endl;
+		//}
+		window.clear();
+		window.display();
+	}
 }
