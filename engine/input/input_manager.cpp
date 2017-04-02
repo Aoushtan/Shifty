@@ -1,42 +1,46 @@
 #include <SFML\Graphics.hpp>
-#include <random>
 #include <iostream>
+#include <string>
 #include <unordered_map>
+#include <vector>
+using namespace std;
 
-int main(){
-	//Change this to window rendered by graphics module
-	sf::RenderWindow window(sf::VideoMode(640, 480), "LOL");
-	//Event
-	sf::Event event;
-	//Creating a map to hold keys pressed
-	std::unordered_map<int,bool> keys;
+class Input {
+	private:
+		Log log; //Using the log module
+		//Getting the window from the engine
+		sf::RenderWindow window;
+		//Creating event
+		sf::Event event;
+		//Creating a map to hold keys pressed
+		unordered_map<int,bool> keys;
+		//vector<int> keyReturn;
+	public:
+		void input_loop(); //Constantly check for input while window is open
+		Input();
+};
+Input::Input() {
 	
-	while(window.isOpen()){
-		while(window.pollEvent(event)){
-			if(event.type == sf::Event::EventType::Closed)
-			{
-				window.close();
-			}
-			//Managing held down keys and storing in keys
-			//Adds pressed key to map if it does not exist upon press
-			if(event.type == sf::Event::EventType::KeyPressed){
-					keys[event.key.code] = true;
-			}
-			//Removes pressed key from the map upon release
-			if(event.type == sf::Event::EventType::KeyReleased){
-					keys.erase(event.key.code);
-			}
-			//About to work on this so it isn't trash
-			//if(event.type == sf::Event::EventType::)
-		}
-		//Print out enum values of keys
-		std::cout << "Currently pressed keys: ";
-		for(auto& keyValue : keys)
+}
+
+void Input::input_loop()
+{
+	while(window.pollEvent(event)){
+		//If the event is a close event, close the window
+		if(event.type == sf::Event::EventType::Closed)
 		{
-			std::cout << keyValue.first << " ";
+			window.close();
 		}
-		std::cout << std::endl;
-		window.clear();
-		window.display();
+		//Managing held down keys and storing in keys
+		//Adds pressed key to map if it does not exist upon press
+		if(event.type == sf::Event::EventType::KeyPressed){
+				keys[event.key.code] = true;
+				//keyReturn.push_back(event.key.code);
+				cout << "LOL";
+		}
+		//Removes pressed key from the map upon release
+		if(event.type == sf::Event::EventType::KeyReleased){
+				keys.erase(event.key.code);
+		}
 	}
 }
