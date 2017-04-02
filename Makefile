@@ -1,2 +1,8 @@
+ifeq ($(OS),Windows_NT)
+	exec = game.exe
+else
+	exec = game
+endif
+
 make:
-	g++ input\input_manager.cpp -lsfml-graphics -lsfml-window -lsfml-system
+	g++ -o $(exec) game.cpp -lsfml-graphics -lsfml-window -lsfml-system
