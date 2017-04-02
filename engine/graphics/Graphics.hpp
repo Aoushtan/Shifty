@@ -1,6 +1,13 @@
 #include <SFML/Graphics.hpp>
+#ifndef INI
+#define INI
 #include "../../inc/SimpleIni/SimpleIni.hpp"
+#endif
+#ifndef LOG 
+#define LOG
 #include "../../logging/logging.hpp"
+#endif
+
 
 using namespace std;
 
@@ -18,8 +25,9 @@ class Graphics {
         void setTitleIcon(const string); // sets the icon for the window
     public:
         // methods
-        void loop(); // runs a refresh loop
+        void update(); // runs a refresh loop
         bool running(); // returns whether the window is open or not
+        void clearDisplay();
         sf::RenderWindow* getWindow();
 
         // constructor
@@ -61,7 +69,7 @@ void Graphics::setTitleIcon(const string filename){
 }
 
 // runs a single refresh loop for the window
-void Graphics::loop(){
+void Graphics::update(){
     // make sure the window is open
     if (this->window.isOpen()){
         // event loop
@@ -76,6 +84,10 @@ void Graphics::loop(){
         this->window.display();
     }
 } 
+
+void Graphics::clearDisplay(){
+    this->window.clear();
+}
 
 bool Graphics::running(){
     return this->window.isOpen();
