@@ -13,20 +13,31 @@ class Engine{
 		// variables
 		Log log;
 		CSimpleIniA ini; // ini file for initial values
-		Graphics graphics;
-		sf::Clock gameClock;
-		sf::Time lastGraphicsLoop;
-		sf::Time lastLogicLoop;
+		Graphics graphics; // graphics for display
+		sf::Clock gameClock; // counts the time since the game started
 
-		int logicFramesElapsed;
-		int graphicsFramesElapsed;
+		/* 
+		graphics and logic can run at different rates,
+		or the same rate, but the tracking variables
+		have been separated as such
+		*/
+		sf::Time lastGraphicsUpdate; // last time a graphics update happened
+		sf::Time lastLogicUpdate; // last time a logic update happened
+
+		// how many logic frames have happened since the game started
+		int logicFramesElapsed; 
 		int logicFramerate;
+
+		// how many graphics frames have happened since the game started
+		int graphicsFramesElapsed;
 		int graphicsFramerate;
+		// how many graphics frames have been skipped
 		int graphicsUpdatesSkipped;
+		// how many frames can be skipped before we must update
 		int graphicsSkipLimit;
 
 		// methods
-		void logicLoop();
+		void logicUpdate();
 		void graphicsUpdate();
 		void createIniHandler(const string);
 	public:
@@ -52,7 +63,7 @@ void Engine::createIniHandler(const string iniFilename){
     }
 }
 
-void Engine::logicLoop(){
+void Engine::logicUpdate(){
 }
 
 void Engine::graphicsUpdate(){
@@ -65,28 +76,39 @@ void Engine::run(){
 		sf::Time elapsed = this->gameClock.getElapsedTime();
 
 		// if a logic loop needs to be ran
+		// (expected # of frames that have been completed > actual frames completed)
 		if ((double)(elapsed.asMicroseconds()) * this->logicFramerate / 1000000 
 			> this->logicFramesElapsed){
-			this->logicLoop();
-			this->lastLogicLoop = elapsed;
+
+			// run a logic loop
+			this->logicUpdate();
+			this->lastLogicUpdate = elapsed;
 			this->logicFramesElapsed++;
+
+			// if we are still behind
+			// (same condition as above)
 			if ((double)(elapsed.asMicroseconds()) * this->logicFramerate / 1000000 
 				> this->logicFramesElapsed){
+				// if we can skip a frame
 				if (this->graphicsUpdatesSkipped > this->graphicsSkipLimit){
-					lastGraphicsLoop = elapsed;
+					lastGraphicsUpdate = elapsed;
 					this->graphics.clearDisplay();
 					this->graphicsUpdate();
 
 					this->graphicsUpdatesSkipped = 0;
+				// skip a frame
 				} else {
+					// debugging red flag
 					printf("skipped graphics frame\n");
 					this->graphicsUpdatesSkipped++;
 				}
 			}
 		} 
-		if (elapsed.asMicroseconds() > lastGraphicsLoop.asMicroseconds() + 
+		// if we need to run a graphics update
+		// (elapsed microseconds > elapsed microseconds + frame time)
+		if (elapsed.asMicroseconds() > lastGraphicsUpdate.asMicroseconds() + 
 			(1.0/this->graphicsFramerate * 1000000)){
-			lastGraphicsLoop = elapsed;
+			lastGraphicsUpdate = elapsed;
 			this->graphics.clearDisplay();
 			this->graphicsUpdate();
 		}
