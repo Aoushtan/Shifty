@@ -28,9 +28,15 @@ int main()
 			}
 			case MOUSE_EVENT:
 			{
-				mouseX = InRec.Event.MouseEvent.dwMousePosition.X;
-				mouseY = InRec.Event.MouseEvent.dwMousePosition.Y;
-				cout << mouseX + " " + mouseY << endl;
+				if(InRec.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED)
+				{
+					cout << "You clicked lmb LOL" << endl;
+				}
+				else {
+					mouseX = InRec.Event.MouseEvent.dwMousePosition.X;
+					mouseY = InRec.Event.MouseEvent.dwMousePosition.Y;
+					cout << mouseX + " " + mouseY;
+				}
 				break;
 			}
 		}
