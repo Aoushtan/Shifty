@@ -2,6 +2,8 @@
 #include "../inc/SimpleIni/SimpleIni.hpp"
 #include "../logging/logging.hpp"
 
+using namespace std;
+
 // Big graphics class
 // Manages the window
 class Graphics {
@@ -12,18 +14,18 @@ class Graphics {
         Log log;
 
         // methods
-        void createIniHandler(const char *); // creates the ini file for use
-        void setTitleIcon(const char *); // sets the icon for the window
+        void createIniHandler(const string); // creates the ini file for use
+        void setTitleIcon(const string); // sets the icon for the window
     public:
         // methods
         void loop(); // runs a refresh loop
         bool running(); // returns whether the window is open or not
 
         // constructor
-        Graphics(const char *);
+        Graphics(const string);
 };
 
-Graphics::Graphics(const char * iniFilename){
+Graphics::Graphics(const string iniFilename){
     // create the ini file
     this->createIniHandler(iniFilename);
 
@@ -39,8 +41,8 @@ Graphics::Graphics(const char * iniFilename){
 }
 
 // this function creates the object for reading from the ini file
-void Graphics::createIniHandler(const char * iniFilename){
-    SI_Error rc = this->ini.LoadFile(iniFilename);
+void Graphics::createIniHandler(const string iniFilename){
+    SI_Error rc = this->ini.LoadFile(iniFilename.c_str());
     if (rc < 0){
         log.log("Error opening ini file for Graphics module");
         exit(-1);
@@ -48,7 +50,7 @@ void Graphics::createIniHandler(const char * iniFilename){
 }
 
 // sets the title icon
-void Graphics::setTitleIcon(const char * filename){
+void Graphics::setTitleIcon(const string filename){
     // loads an image
     sf::Image image;
     image.loadFromFile(filename);
