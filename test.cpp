@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "Audio_Module.hpp"
+#include "audio/Audio.hpp"
 
 int main(){
     sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
