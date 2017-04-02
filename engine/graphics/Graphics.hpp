@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
-#include "../inc/SimpleIni/SimpleIni.hpp"
-#include "../logging/logging.hpp"
+#include "../../inc/SimpleIni/SimpleIni.hpp"
+#include "../../logging/logging.hpp"
 
 using namespace std;
 
@@ -27,7 +27,7 @@ class Graphics {
 
 Graphics::Graphics(){
     // create the ini file
-    this->createIniHandler("graphics/graphics.ini");
+    this->createIniHandler("engine/graphics/graphics.ini");
 
     // get the needed variables
     int height = atoi(ini.GetValue("main", "WINDOW_HEIGHT", NULL));
