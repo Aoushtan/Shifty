@@ -22,18 +22,17 @@ int main()
         switch (InRec.EventType)
         {
         case KEY_EVENT:
-            cout << InRec.Event.KeyEvent.uChar.AsciiChar << endl;
-			if(InRec.Event.KeyEvent.uChar.AsciiChar == 'x')
+            cout << InRec.Event.KeyEvent.wVirtualKeyCode << endl;
+			if(InRec.Event.KeyEvent.wVirtualKeyCode == "VK_ESCAPE")
 			{
-				cout << "Exiting" << endl;
+				cout << "Exiting";
 				Continue = FALSE;
 			}
 			break;
         case MOUSE_EVENT:
-            cout << InRec.Event.MouseEvent.dwMousePosition.X + " " + InRec.Event.MouseEvent.dwMousePosition.Y  << endl;
+            cout << InRec.Event.MouseEvent.dwMousePosition.X << endl;
             break;
         }
     }
-
     return 0;
 }
