@@ -6,4 +6,3 @@ endif
 
 make:
 	g++ -o $(exec) gfx/graphics.cpp -lsfml-graphics -lsfml-window -lsfml-system
-	
