@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "../SimpleIni/SimpleIni.hpp"
+#include "../inc/SimpleIni/SimpleIni.hpp"
 
 // Big graphics class
 // Manages the window
