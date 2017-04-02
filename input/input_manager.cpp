@@ -11,6 +11,7 @@ int main()
 	POINT p;
 	string mouseX = "";
 	string mouseY = "";
+	string keyCode = "";
 
     hIn = GetStdHandle(STD_INPUT_HANDLE);
     hOut = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -22,19 +23,24 @@ int main()
         {
 			case KEY_EVENT:
 			{
-				cout << InRec.Event.KeyEvent.wVirtualKeyCode << endl;
+				if(InRec.Event.KeyEvent.bKeyDown)
+				{
+					keyCode = InRec.Event.KeyEvent.wVirtualKeyCode;
+					cout << "You hit key with value " + keyCode << endl;
+				}
 				break;
 			}
 			case MOUSE_EVENT:
 			{
+				mouseX = InRec.Event.MouseEvent.dwMousePosition.X;
+				mouseY = InRec.Event.MouseEvent.dwMousePosition.Y;
 				if(InRec.Event.MouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED)
 				{
-					cout << "You clicked lmb LOL" << endl;
+					cout << "You clicked LMB on " + mouseX + " " + mouseY << endl;
 				}
-				else {
-					mouseX = InRec.Event.MouseEvent.dwMousePosition.X;
-					mouseY = InRec.Event.MouseEvent.dwMousePosition.Y;
-					cout << mouseX + " " + mouseY;
+				else if(InRec.Event.MouseEvent.dwButtonState == RIGHTMOST_BUTTON_PRESSED)
+				{
+					cout << "You clicked RMB on " + mouseX + " " + mouseY << endl;
 				}
 				break;
 			}
