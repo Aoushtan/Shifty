@@ -5,4 +5,4 @@ else
 endif
 
 make:
-	g++ -o $(exec) test.cpp -lsfml-graphics -lsfml-window -lsfml-system
+	g++ -o $(exec) game.cpp -lsfml-graphics -lsfml-window -lsfml-system

@@ -20,6 +20,7 @@ class Graphics {
         // methods
         void loop(); // runs a refresh loop
         bool running(); // returns whether the window is open or not
+        sf::RenderWindow* getWindow();
 
         // constructor
         Graphics();
@@ -78,4 +79,8 @@ void Graphics::loop(){
 
 bool Graphics::running(){
     return this->window.isOpen();
+}
+
+sf::RenderWindow* Graphics::getWindow(){
+    return &(this->window);
 }
