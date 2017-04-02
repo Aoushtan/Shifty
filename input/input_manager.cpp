@@ -8,7 +8,6 @@ int main()
     HANDLE hOut;
     INPUT_RECORD InRec;
     DWORD NumRead;
-	POINT p;
 	string mouseX = "";
 	string mouseY = "";
 	string keyCode = "";
