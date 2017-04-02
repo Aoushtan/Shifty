@@ -22,12 +22,12 @@ class Graphics {
         bool running(); // returns whether the window is open or not
 
         // constructor
-        Graphics(const string);
+        Graphics();
 };
 
-Graphics::Graphics(const string iniFilename){
+Graphics::Graphics(){
     // create the ini file
-    this->createIniHandler(iniFilename);
+    this->createIniHandler("graphics/graphics.ini");
 
     // get the needed variables
     int height = atoi(ini.GetValue("main", "WINDOW_HEIGHT", NULL));
@@ -78,14 +78,4 @@ void Graphics::loop(){
 
 bool Graphics::running(){
     return this->window.isOpen();
-}
-
-int main(){
-    Graphics gfx("gfx/graphics.ini");
-
-    while (gfx.running()){
-        gfx.loop();
-    }
-
-    return 0;
 }
