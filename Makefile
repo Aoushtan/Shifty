@@ -1,2 +1,2 @@
 make:
-	g++ files.cpp -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+	g++ test.cpp -o test -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -std=c++11
