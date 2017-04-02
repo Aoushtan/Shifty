@@ -1,15 +1,28 @@
 #include <SFML/Graphics.hpp>
 #include "../SimpleIni/SimpleIni.hpp"
+#include "stdio.h"
+
+
+
+int setTitleIcon(const char * filename, sf::RenderWindow* window){
+    sf::Image image;
+    image.loadFromFile(filename);
+    window->setIcon(image.getSize().x, image.getSize().y, image.getPixelsPtr());
+}
 
 int main(){
     CSimpleIniA ini;
-    ini.SetUnicode();
-    ini.LoadFile("graphics.ini");
+    SI_Error rc = ini.LoadFile("gfx/graphics.ini");
+    if (rc < 0){
+        printf("error with file\n");
+    }
 
+    int height = atoi(ini.GetValue("main", "WINDOW_HEIGHT", NULL));
+    int width = atoi(ini.GetValue("main", "WINDOW_WIDTH", NULL));   
+    const char * iconPath = ini.GetValue("resources", "iconPath", NULL);
 
-    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
+    sf::RenderWindow window(sf::VideoMode(height, width), "Shifty");
+    setTitleIcon(iconPath, &window);
 
     while (window.isOpen())
     {
@@ -21,7 +34,6 @@ int main(){
         }
 
         window.clear();
-        window.draw(shape);
         window.display();
     }
 
