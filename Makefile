@@ -1,2 +1,2 @@
 make:
-	g++ input_manager.cpp -lsfml-graphics -lsfml-window -lsfml-system
+	g++ files.cpp -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
