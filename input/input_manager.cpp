@@ -1,11 +1,9 @@
 #include <windows.h>
 #include <iostream>
-#include <stdlib.h>
 using namespace std;
 
 int main()
 {
-	//Making a ton of garbo
     HANDLE hIn;
     HANDLE hOut;
     INPUT_RECORD InRec;
@@ -25,6 +23,7 @@ int main()
 			case KEY_EVENT:
 			{
 				cout << InRec.Event.KeyEvent.wVirtualKeyCode << endl;
+				break;
 			}
 			case MOUSE_EVENT:
 			{
