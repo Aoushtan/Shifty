@@ -1,4 +1,4 @@
-#include "inc/json.hpp"
+#include "../inc/json.hpp"
 #include <iostream>
 #include <fstream>
 #include <map>
@@ -22,8 +22,8 @@ class Audio_Module{
 
 Audio_Module::Audio_Module(){
 	jSon json;
-	ifstream audio_tree("Audio/audio_tree.json");
-	string directory = "Audio/";
+	ifstream audio_tree("audio/audio_tree.json");
+	string directory = "resources/";
 	
 	audio_tree >> json;
 	
