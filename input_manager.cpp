@@ -8,31 +8,32 @@ int main()
 	//Making a ton of garbo
     HANDLE hIn;
     HANDLE hOut;
-    bool Continue = TRUE;
     INPUT_RECORD InRec;
     DWORD NumRead;
 	POINT p;
+	string mouseX = "";
+	string mouseY = "";
 
     hIn = GetStdHandle(STD_INPUT_HANDLE);
     hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 
-    while (Continue)
+    while (1)
     {
         ReadConsoleInput(hIn, &InRec, 1, &NumRead);
         switch (InRec.EventType)
         {
-        case KEY_EVENT:
-            cout << InRec.Event.KeyEvent.wVirtualKeyCode << endl;
-			if(InRec.Event.KeyEvent.wVirtualKeyCode == "VK_ESCAPE")
+			case KEY_EVENT:
 			{
-				cout << "Exiting";
-				Continue = FALSE;
+				cout << InRec.Event.KeyEvent.wVirtualKeyCode << endl;
 			}
-			break;
-        case MOUSE_EVENT:
-            cout << InRec.Event.MouseEvent.dwMousePosition.X << endl;
-            break;
-        }
+			case MOUSE_EVENT:
+			{
+				mouseX = InRec.Event.MouseEvent.dwMousePosition.X;
+				mouseY = InRec.Event.MouseEvent.dwMousePosition.Y;
+				cout << mouseX + " " + mouseY << endl;
+				break;
+			}
+		}
     }
     return 0;
 }
