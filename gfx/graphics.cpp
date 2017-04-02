@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "../inc/SimpleIni/SimpleIni.hpp"
+#include "../logging/logging.hpp"
 
 // Big graphics class
 // Manages the window
@@ -8,6 +9,7 @@ class Graphics {
         // variables
         sf::RenderWindow window; // actual window
         CSimpleIniA ini; // ini file for initial values
+        Log log;
 
         // methods
         void createIniHandler(const char *); // creates the ini file for use
@@ -40,7 +42,7 @@ Graphics::Graphics(const char * iniFilename){
 void Graphics::createIniHandler(const char * iniFilename){
     SI_Error rc = this->ini.LoadFile(iniFilename);
     if (rc < 0){
-        printf("Error with ini file\n");
+        log.log("Error opening ini file for Graphics module");
         exit(-1);
     }
 }
