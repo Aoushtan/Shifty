@@ -9,7 +9,7 @@ class Renderer {
 		sf::Texture texture;
 	public:
 		Renderer();
-		sf::Sprite* renderSomething();
+		sf::Sprite renderSomething();
 };
 
 Renderer::Renderer(){
@@ -19,6 +19,6 @@ Renderer::Renderer(){
 	this->sprite.setPosition(100, 100);
 }
 
-sf::Sprite* Renderer::renderSomething(){
-	return &(this->sprite);
+sf::Sprite Renderer::renderSomething(){
+	return this->sprite;
 }

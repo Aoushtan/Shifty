@@ -85,7 +85,7 @@ void Graphics::update(){
             if (event.type == sf::Event::Closed)
                 this->window.close();
         }
-        this->window.draw(*(this->renderer.renderSomething()));
+        this->window.draw(this->renderer.renderSomething());
         // display
         this->window.display();
     }
