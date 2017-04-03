@@ -1,3 +1,7 @@
+#ifndef SFML_GRAPHICS
+#define SFML_GRAPHICS
+#include <SFML/Graphics.hpp>
+#endif
 #include <SFML/Graphics.hpp>
 #ifndef INI
 #define INI
@@ -8,6 +12,7 @@
 #include "../../logging/logging.hpp"
 #endif
 
+#include "Renderer.hpp"
 
 using namespace std;
 
@@ -17,6 +22,7 @@ class Graphics {
     private:
         // variables
         sf::RenderWindow window; // actual window
+        Renderer renderer;
         CSimpleIniA ini; // ini file for initial values
         Log log;
 
@@ -79,7 +85,7 @@ void Graphics::update(){
             if (event.type == sf::Event::Closed)
                 this->window.close();
         }
-
+        this->window.draw(*(this->renderer.renderSomething()));
         // display
         this->window.display();
     }
